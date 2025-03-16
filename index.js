@@ -198,7 +198,7 @@ app.post('/api/validate-key', (req, res) => {
 
     // Generate a secure unique token for the temporary link
     const token = crypto.randomBytes(16).toString('hex');
-    const tempLink = `/store/temp/${token}-${codeId}.js`;
+    const tempLink = `/store/tmp/${token}-${codeId}.js`;
 
     // Write the temporary file content (for demo purposes)
     const tempFilePath = path.join(__dirname, tempLink);
@@ -223,7 +223,7 @@ app.post('/api/validate-key', (req, res) => {
 });
 
 // Serve temporary files securely
-app.get('/store/temp/:token-:codeId.js', (req, res) => {
+app.get('/store/tmp/:token-:codeId.js', (req, res) => {
     const { token, codeId } = req.params;
 
     // Check if the token exists and hasn't expired
@@ -608,7 +608,7 @@ app.get("/download/ytmp3", async (req, res) => {
                     quality: "128kbps", // You can customize this if needed
                     title: "YouTube MP3", // You can fetch the title if the API provides it
                     thumbnail: `https://img.youtube.com/vi/${extractYouTubeID(url)}/hqdefault.jpg`,
-                    download_url: `${BASE_URL}/temp/${fileName}`,
+                    download_url: `${BASE_URL}/tmp/${fileName}`,
                 },
             });
 
