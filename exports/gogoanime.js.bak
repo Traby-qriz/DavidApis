@@ -1,0 +1,99 @@
+import axios from "axios";
+import cheerio from "cheerio";
+import puppeteer from "puppeteer";
+import UserAgent from "user-agents";
+
+const baseUrl = "https://gogoanime.run";
+
+export async function newSeason(page) {
+    const animeList = [];
+    const res = await axios.get(`${baseUrl}/new-season.html?page=${page}`);
+    const $ = cheerio.load(res.data);
+
+    $("div.main_body div.last_episodes ul.items li").each((_, element) => {
+        const $element = $(element);
+        const name = $element.find("p > a").html();
+        const img = $element.find("div > a > img").attr("src");
+        const link = $element.find("div > a").attr("href");
+        animeList.push({ name, img_url: img, anime_id: link.slice(10) });
+    });
+
+    return animeList;
+}
+
+export async function popular(page) {
+    const animeList = [];
+    const res = await axios.get(`${baseUrl}/popular.html?page=${page}`);
+    const $ = cheerio.load(res.data);
+
+    $("div.main_body div.last_episodes ul.items li").each((_, element) => {
+        const $element = $(element);
+        const name = $element.find("p > a").html();
+        const img = $element.find("div > a > img").attr("src");
+        const link = $element.find("div > a").attr("href");
+        animeList.push({ name, img_url: img, anime_id: link.slice(10) });
+    });
+
+    return animeList;
+}
+
+export async function search(query) {
+    const animeList = [];
+    const res = await axios.get(`${baseUrl}/search.html?keyword=${query}`);
+    const $ = cheerio.load(res.data);
+
+    $("div.main_body div.last_episodes ul.items li").each((_, element) => {
+        const $element = $(element);
+        const name = $element.find("p > a").html();
+        const img = $element.find("div > a > img").attr("src");
+        const link = $element.find("div > a").attr("href");
+        animeList.push({ name, img_url: img, anime_id: link.slice(10) });
+    });
+
+    return animeList;
+}
+
+export async function anime(animeName) {
+    const res = await axios.get(`${baseUrl}/category/${animeName}`);
+    const $ = cheerio.load(res.data);
+
+    const imgUrl = $("div.anime_info_body_bg img").attr("src");
+    const animeNameText = $("div.anime_info_body_bg h1").text();
+    const about = $("div.anime_info_body_bg p:nth-child(5)").text();
+
+    const episodeArray = [];
+    const episodes = $("#episode_page").children().last().find("a").text().split("-")[1];
+    for (let i = 1; i <= episodes; i++) {
+        episodeArray.push(`${animeName}-episode-${i}`);
+    }
+
+    return { name: animeNameText, img_url: imgUrl, about, episode_id: episodeArray };
+}
+
+export async function watchAnime(episodeId) {
+    const res = await axios.get(`${baseUrl}/${episodeId}`);
+    const $ = cheerio.load(res.data);
+    const episodeLink = $("li.dowloads > a").attr("href");
+
+    const downloadLinks = await getDownloadLink(episodeLink);
+    return downloadLinks;
+}
+
+async function getDownloadLink(episodeLink) {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setUserAgent(new UserAgent().toString());
+    await page.goto(episodeLink, { waitUntil: "networkidle0" });
+
+    const links = await page.evaluate(() => {
+        const links = [];
+        document.querySelectorAll(".mirror_link a").forEach((link) => {
+            const name = link.innerText.split("D ")[1].replace(/[()]/g, "");
+            links.push({ name, link: link.href });
+        });
+        return links;
+    });
+
+    await browser.close();
+    return links;
+}

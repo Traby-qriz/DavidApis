@@ -1,0 +1,19 @@
+import Stats from './exports/Stats.js'; // Adjust path if necessary
+
+async function initializeStats() {
+  try {
+    const stats = await Stats.findOne();
+    if (!stats) {
+      await Stats.create({ total_requests: 0 });
+      console.log('Initialized stats in MongoDB.');
+    } else {
+      console.log('Stats already initialized.');
+    }
+  } catch (error) {
+    console.error('Error initializing stats:', error.message);
+    process.exit(1);
+  }
+}
+
+// Call this function before starting the server
+initializeStats();

@@ -1,0 +1,8 @@
+import { Mp3, Mp4 } from './youtube.js';
+import { chatbot } from './chatbot.js';
+import { tiktokdl } from './tiktok.js';
+import { Lyrics } from './lyrics.js';
+import { ddownr } from './ddownr.js'; // Add this line
+import { svweb } from './svweb.js'; // Add this line
+import { ytdl } from './ytdl.js';
+export { Mp3, Mp4, tiktokdl, chatbot, Lyrics, ddownr, ytdl, svweb }; // Export Gogoanime alongside others
