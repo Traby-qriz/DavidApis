@@ -321,8 +321,7 @@ function runtime(seconds) {
 
 
 import sqlite3 from 'sqlite3';
-const db = new sqlite3.Database('./visitors.db');
-
+const db = new sqlite3.Database('/tmp/visitors.db');
 // Initialize Tables
 function initializeTables() {
     // Create Visitors Table
