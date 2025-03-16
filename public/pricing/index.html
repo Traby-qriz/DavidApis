@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://files.catbox.moe/gt0b6x.jpg" rel="icon">
+    <link href="https://files.catbox.moe/gt0b6x.jpg" rel="apple-touch-icon">
+    <title>David Cyril Api Pricing </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Fade-In Effect */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .fade-in.visible {
+            opacity: 2;
+        }
+
+        /* Hover Effect */
+        .hover-effect:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <main class="max-w-7xl mx-auto px-4 py-10 mt-5">
+        <div class="text-center mb-8 fade-in visible"></div>
+
+        <h1 class="text-3xl font-bold text-center mt-10 mb-8 fade-in visible">PRICING</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">Free Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦0.00/Month</p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to basic API features</li>
+                    <li>Limit 500</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">Basic Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦2,000/Month</p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to Premium API features</li>
+                    <li>Limit 6,000</li>
+                    <li>Custom API key name</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">Pro Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦5,000/Month</p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to VIP API features</li>
+                    <li>Limit 14,000</li>
+                    <li>Custom API key name</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">VIP Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦8,000/Month</p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to VIP API features</li>
+                    <li>Limit 18,000</li>
+                    <li>Custom API key name</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">Super Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦12,000/Month</p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to VIP API features</li>
+                    <li>Limit 30,000</li>
+                    <li>Custom API key name</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md hover-effect fade-in visible">
+                <h2 class="text-xl font-bold mb-4">Enterprise Plan</h2>
+                <p class="text-gray-300 mb-4">Price: ₦25,000/∞<p/p>
+                <ul class="list-disc list-inside text-gray-300 mb-7">
+                    <li>Access to all API features</li>
+                    <li>Unlimited limit</li>
+                    <li>Custom API key name</li>
+                </ul>
+                <a class="mt-7 bg-purple-600 text-white px-4 py-2 rounded-lg mt-4" href="https://wa.me/2348129988915?text=.register">Purchase Now</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <p>&copy; David Cyril 2024-2099. All rights reserved.</p>
+            <p>
+                <a href="index.html#" class="hover:text-purple-500">Privacy Policy</a> | 
+                <a href="index.html#" class="hover:text-purple-500">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                element.classList.add('visible');
+            });
+        });
+    </script>
+</body>
+</html>

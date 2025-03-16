@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Store</title>
+    <style>
+        /* CSS Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .code-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .code-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .code-item h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .code-item button {
+            padding: 8px 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .code-item button:hover {
+            background: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Codes</h1>
+        <div class="code-list">
+            <!-- Example Code Items -->
+            <div class="code-item">
+                <h3>Code 1: JavaScript Animation</h3>
+                <button onclick="unlockCode('code1')">View Code</button>
+            </div>
+            <div class="code-item">
+                <h3>Code 2: Form Validation</h3>
+                <button onclick="unlockCode('code2')">View Code</button>
+            </div>
+            <div class="code-item">
+                <h3>Code 3: Custom Dropdown</h3>
+                <button onclick="unlockCode('code3')">View Code</button>
+            </div>
+        </div>
+        <div class="error-message" id="error-message"></div>
+        <footer>&copy; 2025 Code Store</footer>
+    </div>
+
+    <script>
+        // JavaScript Functionality
+        async function unlockCode(codeId) {
+            const key = prompt("Enter your secret key to unlock this code:");
+            const errorMessage = document.getElementById('error-message');
+
+            // Clear previous error messages
+            errorMessage.textContent = '';
+
+            if (!key) {
+                errorMessage.textContent = "Key is required to view the code.";
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/validate-key', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ key, codeId })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Redirect to the temporary link
+                    window.open(data.link, '_blank');
+                } else {
+                    errorMessage.textContent = data.message || "Invalid key. Please try again.";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                errorMessage.textContent = "An error occurred. Please try again later.";
+            }
+        }
+    </script>
+</body>
+</html>

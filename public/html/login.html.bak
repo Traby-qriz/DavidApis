@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <!-- Display Error or Success Messages -->
+    <div id="messages">
+      <p class="error">
+        <% if (req.query.error) { %><%= req.query.error %><% } %>
+      </p>
+      <p class="success">
+        <% if (req.query.success) { %><%= req.query.success %><% } %>
+      </p>
+    </div>
+    <form action="/login" method="POST" class="form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+  </div>
+</body>
+</html>

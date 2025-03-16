@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://files.catbox.moe/gt0b6x.jpg" rel="icon">
+    <link href="https://files.catbox.moe/gt0b6x.jpg" rel="apple-touch-icon">
+    <title>DAVID CYRIL API</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            font-family: 'Arial', sans-serif;
+            color: #e2e8f0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-card h2 {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+
+        button {
+            text-decoration: none;
+            position: relative;
+            border: none;
+            font-size: 18px;
+            font-family: inherit;
+            cursor: pointer;
+            color: #fff;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 300%;
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        button:hover {
+            animation: ani 8s linear infinite;
+            border: none;
+        }
+
+        @keyframes ani {
+            0% { background-position: 0%; }
+            100% { background-position: 400%; }
+        }
+
+        button:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            border-radius: 35px;
+            transition: 1s;
+        }
+
+        button:hover::before {
+            filter: blur(20px);
+        }
+
+        button:active {
+            background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        }
+
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e2e8f0;
+            border-top: 5px solid #03a9f4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Adjusting the margins for spacing */
+        .stat-card + .stat-card {
+            margin-top: 20px;
+        }
+
+        #findipurl {
+            margin-top: 20px;
+        }
+
+        .Box {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars" class="fixed inset-0 z-0"></div>
+
+    <div id="loadingScreen">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-12 relative z-10">
+        <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            WELCOME TO DAVID CYRIL API
+        </h1>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-6">
+            <div class="stat-card">
+                <h2>Total Requests</h2>
+                <p id="totalRequests">Loading...</p>
+            </div>
+            <div class="stat-card">
+                <h2>RAM Usage</h2>
+                <p id="memoryUsage">Loading...</p>
+            </div>
+        </div>
+        
+        <!-- IP address widget with proper spacing -->
+        <div id="findipurl" class="mb-6">
+            <a href="https://api.maskser.me/find-ip.net"></a>
+        </div>
+
+        <script defer src="https://api.find-ip.net/widget.js?width=220&bg=%23152232&border=%230e1824&textcol=%23d3d5f3&language=0&system=0&"></script>
+
+        <!-- Server runtime with proper spacing -->
+        <div class="Box mt-4">
+            <div class="Box-body p-4">
+                <div class="d-flex flex-justify-between">
+                    <div class="text-mono text-small mb-3"></div>
+                    <div class="stat-card">
+                        <h2>Server Runtime</h2>
+                        <p id="runtime">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <button onclick="showLoadingScreen()">Continue to Docs</button>
+        </div>
+
+        <footer class="text-center mt-4 text-sm text-gray-500">
+            &copy; 2024 - 2099 David Cyril Tech. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        async function fetchStats() {
+            try {
+                const statusResponse = await fetch('https://api2.davidcyriltech.my.id/status');
+                const countResponse = await fetch('https://api2.davidcyriltech.my.id/count');
+
+                const statusData = await statusResponse.json();
+                const countData = await countResponse.json();
+
+                document.getElementById('totalRequests').textContent = countData.total_requests.toLocaleString();
+                document.getElementById('memoryUsage').textContent = statusData.memory;
+                document.getElementById('runtime').textContent = statusData.runtime;
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        function showLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.display = 'flex'; // Show loading screen
+
+            setTimeout(() => {
+                window.location.href = './docs'; // Redirect after 5 seconds
+            }, 5000);
+        }
+
+        createStars();
+        fetchStats();
+        setInterval(fetchStats, 1000);
+    </script>
+</body>
+</html>

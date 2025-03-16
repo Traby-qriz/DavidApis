@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, <span id="username"></span>!</h1>
+    <p>This is your dashboard.</p>
+    <a href="/logout" class="logout-button">Logout</a>
+  </div>
+
+  <script>
+    // Inject the username dynamically from the session
+    fetch('/dashboard-data')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('username').textContent = data.username;
+      });
+  </script>
+</body>
+</html>

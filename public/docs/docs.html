@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAVID CYRIL APIs Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
+
+        body {
+            background-color: #0f172a;
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        .endpoint-card, .stats-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .endpoint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(147, 197, 253, 0.5);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(147, 197, 253, 0.3);
+        }
+
+        .Btn {
+            width: 180px;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to right, #77530a, #ffd277, #77530a, #77530a, #ffd277, #77530a);
+            background-size: 250%;
+            background-position: left;
+            color: #ffd277;
+            font-size: 1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition-duration: 1s;
+            overflow: hidden;
+        }
+
+        .Btn::before {
+            position: absolute;
+            content: "WHATSAPP CHANNEL";
+            color: #ffd277;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 97%;
+            height: 90%;
+            border-radius: 8px;
+            transition-duration: 1s;
+            background-color: rgba(0, 0, 0, 0.842);
+            background-size: 200%;
+        }
+
+        .Btn:hover {
+            background-position: right;
+            transition-duration: 1s;
+        }
+
+        .Btn:hover::before {
+            background-position: right;
+            transition-duration: 1s;
+        }
+
+        .Btn:active {
+            transform: scale(0.95);
+        }
+
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .hamburger {
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            margin: 5px auto;
+            background-color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .logo-container {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .blinking-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #2ca58d; /* Green color */
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+/* Blinking animation */
+@keyframes blink {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0.3;
+    }
+}
+    </style>
+</head>
+<body class="text-gray-200">
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html#" class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                DAVID CYRIL APIs
+            </a>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger lg:hidden" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex space-x-8">
+                <a href="tqto.html" class="hover:text-blue-400 transition-colors">CONTACT ME</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed top-0 left-0 h-full w-64 bg-gray-900 z-40 p-6 lg:hidden">
+        <div class="flex flex-col space-y-6 mt-16">
+            <a href="tqto.html" class="hover:text-blue-400 transition-colors">CONTACT ME</a>
+        </div>
+    </div>
+
+    <!-- Header with Logo -->
+    <header class="py-24 px-6 text-center animate__animated animate__fadeIn">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-8">
+            <!-- Logo/Image Container -->
+            <div class="logo-container w-32 h-32 md:w-48 md:h-48 relative">
+                <div class="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 absolute animate-pulse"></div>
+                <div class="w-full h-full rounded-full bg-gradient-to-br from-blue-400 to-purple-500 opacity-30 absolute" style="transform: scale(0.9)"></div>
+                <img src="https://files.catbox.moe/4hq1u5.jpg" alt="DAVID CYRIL APIs Logo" class="w-full h-full object-contain relative z-10"/>
+            </div>
+
+            <!-- Title and Description -->
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text text-transparent">
+                    Welcome to David Cyril API!
+                </h1>
+                <p class="mt-4 text-gray-400">Explore our WhatsApp API solutions.</p>
+
+                <!-- Button -->
+                <div class="mt-6 flex justify-center">
+                    <button class="Btn" onclick="window.location.href='https://whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L';">
+                        WHATSAPP CHANNEL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+   <main>
+     <!-- Music Section -->
+     
+<div class="music-controls" style="text-align: center; margin-top: 20px;">
+    <button id="musicToggle" class="action-btn" style="margin-bottom: 10px; background-color: #ffffff; color: #000000; border: 1px solid #000;">Pause Music</button>
+    <br>
+    <input type="range" id="volumeControl" class="volume-slider" min="0" max="100" value="70" style="display: inline-block; margin-top: 10px; width: 200px;">
+</div>
+
+ <!-- Main Content -->
+ <main class="container mx-auto px-4 md:px-6 py-8">
+    <!-- Endpoints Section -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate__animated animate__fadeInUp">
+        <!-- Endpoint Card 1 -->
+        <div class="endpoint-card rounded-xl p-6">
+            <div class="flex justify-between items-start mb-4">
+<span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">AI</h3>
+            <p class="text-gray-400 text-sm mb-4">Artificial Intelligence Endpoints</p>
+            <a href="https://api.davidcyriltech.my.id/endpoints/ai.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+               TEST <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+                                    </div>
+<div class="endpoint-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Downloaders</h3>
+    <p class="text-gray-400 text-sm mb-4">Media Downloader Endpoints</p>
+    <a href="https://api.davidcyriltech.my.id/endpoints/download.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+       TEST <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+    </div>
+<div class="endpoint-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Tools</h3>
+    <p class="text-gray-400 text-sm mb-4">Tools Endpoints</p>
+    <a href="https://api.davidcyriltech.my.id/endpoints/tools.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+       TEST <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+        </div>
+<div class="endpoint-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Random</h3>
+    <p class="text-gray-400 text-sm mb-4">Random Api Endpoints</p>
+    <a href="https://api.davidcyriltech.my.id/endpoints/random.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+       TEST <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+     </div>
+<div class="endpoint-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Fun</h3>
+    <p class="text-gray-400 text-sm mb-4">Fun Endpoints</p>
+    <a href="https://api.davidcyriltech.my.id/endpoints/fun.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+       TEST <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+         </div>
+<div class="endpoint-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <span class="method-badge method-get"></span>
+        <span class="blinking-dot"></span>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Stalk</h3>
+    <p class="text-gray-400 text-sm mb-4">Stalk Endpoints</p>
+    <a href="https://api.davidcyriltech.my.id/endpoints/stalk.html" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+       TEST <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+          </div>
+    </section>
+</main>
+
+<!-- Music Section -->
+
+
+<!-- Footer -->
+<footer class="mt-16 py-8 px-6 text-center border-t border-gray-800">
+    <p class="text-gray-400 text-sm">
+        © 2024 - 2099 David Cyril Tech. All rights reserved.
+        <br>
+        <span class="text-xs">Created With <i class="fas fa-heart text-red-500"></i> By <a href="https://whatsapp.com/channel/0029VaeRru3ADTOEKPCPom0L">David Cyril<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"/>
+          </svg></a></span>
+    </p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script>
+    // Background Music
+    const sound = new Howl({
+        src: ['./background-music.mp3'], // Ensure the file path is correct
+        loop: true,
+        volume: 0.5,
+        onloaderror: () => {
+            console.error("Error loading music file. Ensure 'background-music.mp3' exists in the correct location.");
+        }
+    });
+
+    // Autoplay Music on Load
+    window.addEventListener('load', () => {
+        try {
+            sound.play();
+        } catch (err) {
+            console.error("Autoplay blocked by browser. Waiting for user interaction.");
+        }
+    });
+
+    // Toggle Music
+    const musicToggle = document.getElementById('musicToggle');
+    musicToggle.addEventListener('click', () => {
+        if (sound.playing()) {
+            sound.pause();
+            musicToggle.textContent = 'Play Music';
+        } else {
+            sound.play();
+            musicToggle.textContent = 'Pause Music';
+        }
+    });
+
+    // Volume Control
+    const volumeControl = document.getElementById('volumeControl');
+    volumeControl.addEventListener('input', (e) => {
+        sound.volume(e.target.value / 100);
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    window.onload = function() {
+        Swal.fire({
+title: "Dont Spam Requests Please.",
+text: "Enjoy Free Api Endpoints 🥰🔥",
+icon: "success",
+});
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+    <script>
+      var typing = new Typed(".typing", {
+        strings: ["Welcome To David Cyril Api", "Develop By David Cyril"],
+        typeSpeed: 100,
+        backSpeed: 50,
+        loop: true
+      });
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+       async function runtime() {
+            const ambil = await axios.get('/stats')
+            const bilek = ambil.data.uptime
+            return bilek
+          
+        }
+
+        runtime().then(quote => {
+            document.getElementById("uptime").textContent = quote;
+        })
+ // Slider functionality
+ const sliderContainer = document.querySelector('.slider-container');
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.slider-indicator');
+    const prevButton = document.getElementById('prevSlide');
+    const nextButton = document.getElementById('nextSlide');
+    let currentSlide = 0;
+    
+    function updateSlider() {
+        sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentSlide);
+        });
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlider();
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSlider();
+    }
+    
+    // Add click event listeners
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentSlide = index;
+            updateSlider();
+        });
+    });
+    
+  
+    // Auto-slide every 5 seconds
+    setInterval(nextSlide, 5000);
+    // Create stars background
+    function createStars() {
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 100;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            const size = Math.random() * 2 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+    }
+
+    // Initialize stars
+    createStars();
+
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const body = document.body;
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+            hamburger.classList
+        }})
+            </script>

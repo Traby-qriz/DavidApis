@@ -1,0 +1,14 @@
+[
+    {
+        "id": "code1",
+        "name": "JavaScript Array Utilities",
+        "description": "A collection of useful array manipulation functions.",
+        "filePath": "./codes/array-utils.js"
+    },
+    {
+        "id": "code2",
+        "name": "DOM Manipulation Library",
+        "description": "Lightweight library for DOM manipulation.",
+        "filePath": "./codes/dom-library.js"
+    }
+]
