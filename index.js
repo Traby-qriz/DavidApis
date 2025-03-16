@@ -223,7 +223,7 @@ app.post('/api/validate-key', (req, res) => {
 });
 
 // Serve temporary files securely
-app.get('/store/tmp/:token-:codeId.js', (req, res) => {
+app.get('/store/temp/:token-:codeId.js', (req, res) => {
     const { token, codeId } = req.params;
 
     // Check if the token exists and hasn't expired
@@ -542,7 +542,7 @@ app.use(express.json());
 
 
 const BASE_URL = "https://apis.davidcyriltech.my.id"; // Your API domain
-const TEMP_DIR = path.join(__dirname, "temp");
+const TEMP_DIR = path.join(__dirname, "tmp");
 
 // Ensure temp directory exists
 if (!fs.existsSync(TEMP_DIR)) {
