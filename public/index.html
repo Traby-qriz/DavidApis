@@ -211,8 +211,8 @@
 
         async function fetchStats() {
             try {
-                const statusResponse = await fetch('https://apis.davidcyriltech.my.id/status');
-                const countResponse = await fetch('https://apis.davidcyriltech.my.id/count');
+                const statusResponse = await fetch('/status');
+                const countResponse = await fetch('/count');
 
                 const statusData = await statusResponse.json();
                 const countData = await countResponse.json();
