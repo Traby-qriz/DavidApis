@@ -607,7 +607,7 @@ app.get("/download/ytmp3", async (req, res) => {
                     quality: "128kbps", // You can customize this if needed
                     title: "YouTube MP3", // You can fetch the title if the API provides it
                     thumbnail: `https://img.youtube.com/vi/${extractYouTubeID(url)}/hqdefault.jpg`,
-                    download_url: `${BASE_URL}/tmp/${fileName}`,
+                    download_url: `${BASE_URL}/temp/${fileName}`,
                 },
             });
 
@@ -796,25 +796,6 @@ app.get("/download/ytmp4", async (req, res) => {
         });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 404 Handler
 app.use((req, res) => {
