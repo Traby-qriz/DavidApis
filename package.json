@@ -2,7 +2,7 @@
   "name": "david-cyril--api",
   "version": "1.0.0",
   "description": "David Cyril Apis",
-  "main": ".index.js",
+  "main": "./index.js",
   "type": "module",
   "scripts": {
     "dev": "vercel dev",
